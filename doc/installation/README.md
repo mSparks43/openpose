@@ -68,7 +68,7 @@ OpenPose - Installation
 1. For maximum speed, you should use OpenPose in a machine with a Nvidia GPU version. If so, you must upgrade your Nvidia drivers to the latest version (in the Nvidia "GeForce Experience" software or its [website](https://www.nvidia.com/Download/index.aspx)).
 2. Download the latest OpenPose version from the [Releases](https://github.com/CMU-Perceptual-Computing-Lab/openpose/releases) section.
 3. Follow the `Instructions.txt` file inside the downloaded zip file to download the models required by OpenPose (about 500 Mb).
-4. Then, you can run OpenPose from the PowerShell command-line by following [doc/demo_quick_start.md](demo_quick_start.md).
+4. Then, you can run OpenPose from the PowerShell command-line by following [doc/demo_quick_start.md](../demo_quick_start.md).
 
 Note: If you are using the GPU-accelerated version and are seeing `Cuda check failed (3 vs. 0): initialization error` when running OpenPose, you can fix it by doing one of these:
 - Upgrade your Nvidia drivers. If the error persists, make sure your machine does not contain any CUDA version (or if so, that it's the same than the OpenPose portable demo files). Otherwise, uninstall that CUDA version. If you need to keep that CUDA version installed, [compile OpenPose from Source](#compiling-and-running-openpose-from-source) for that CUDA version instead.
@@ -84,7 +84,7 @@ The instructions in the following subsections describe the steps to build OpenPo
 
 
 ### Problems and Errors Installing OpenPose
-Any problem installing OpenPose while following this guidelines? Check [doc/faq.md](faq.md) and/or check existing GitHub issues. If you do you find your issue, post a new one. We will not respond to duplicated issues, as well as GitHub issues about Caffe, OpenCV or CUDA installation errors, as well as issues that do not fill all the information that the GitHub template asks for.
+Any problem installing OpenPose while following this guidelines? Check [doc/faq.md](../faq.md) and/or check existing GitHub issues. If you do you find your issue, post a new one. We will not respond to duplicated issues, as well as GitHub issues about Caffe, OpenCV or CUDA installation errors, as well as issues that do not fill all the information that the GitHub template asks for.
 
 
 
@@ -116,30 +116,30 @@ cmake-gui ..
 ```
 2. Select the OpenPose directory as project source directory, and a non-existing or empty sub-directory (e.g., `build`) where the Makefile files (Ubuntu) or Visual Studio solution (Windows) will be generated. If `build` does not exist, it will ask you whether to create it. Press `Yes`.
 <p align="center">
-    <img src="../../.github/media/cmake_installation_im_1.png", width="480">
-    <img src="../../.github/media/cmake_installation_im_1_windows.png", width="480">
+    <img src="media/cmake_installation_im_1.png", width="480">
+    <img src="media/cmake_installation_im_1_windows.png", width="480">
 </p>
 
 3. Press the `Configure` button, keep the generator in `Unix Makefiles` (Ubuntu) or set it to your 64-bit Visual Studio version (Windows), and press `Finish`. Note for Windows users: CMake-GUI has changed their design after version 14. For versions older than 14, you usually select `Visual Studio XX 20XX Win64` as the generator (`X` depends on your VS version), while the `Optional toolset to use` must be empty. However, new CMake versions require you to select only the VS version as the generator, e.g., `Visual Studio 16 2019`, and then you must manually choose `x64` for the `Optional platform for generator`. See the following images as example.
 <p align="center">
-    <img src="../../.github/media/cmake_installation_im_2.png", width="240">
-    <img src="../../.github/media/cmake_installation_im_2_windows.png", width="240">
-    <img src="../../.github/media/cmake_installation_im_2_windows_new.png", width="240">
+    <img src="media/cmake_installation_im_2.png", width="240">
+    <img src="media/cmake_installation_im_2_windows.png", width="240">
+    <img src="media/cmake_installation_im_2_windows_new.png", width="240">
 </p>
 
 4. Enabling Python (optional step, only apply it if you plan to use the Python API): Enable the `BUILD_PYTHON` flag and click `Configure` again.
 
 5. Set the `GPU_MODE` flag to the proper value and click `Configure` again:
     1. If your machine has an Nvidia GPU, you should most probably not modify this flag and skip this step. Cases in which you might have to change it:
-        - If you have a Nvidia GPU with 2GB of memory or less: Then you will have to follow some of the tricks in [doc/speed_up_openpose.md](speed_up_openpose.md) or change `GPU_MODE` back to `CPU_ONLY`.
+        - If you have a Nvidia GPU with 2GB of memory or less: Then you will have to follow some of the tricks in [doc/speed_up_openpose.md](../speed_up_openpose.md) or change `GPU_MODE` back to `CPU_ONLY`.
         - If you cannot install CUDA, then you can also set `GPU_MODE` to `CPU_ONLY`.
-    2. Mac OSX and machines without a non-Nvidia GPU (Intel or AMD GPUs): Set the `GPU_MODE` flag to `CPU_ONLY` (easier to install but slower runtime) or `OPENCL` (GPU-accelerated, it is harder to install but provides a faster runtime speed). For more details on OpenCV support, see [doc/prerequisites.md](prerequisites.md) and [OpenCL Version](#opencl-version).
+    2. Mac OSX and machines with a non-Nvidia GPU (Intel or AMD GPUs): Set the `GPU_MODE` flag to `CPU_ONLY` (easier to install but slower runtime) or `OPENCL` (GPU-accelerated, it is harder to install but provides a faster runtime speed). For more details on OpenCV support, see [doc/prerequisites.md](prerequisites.md) and [OpenCL Version](#opencl-version).
     3. If your machine does not have any GPU, set the `GPU_MODE` flag to `CPU_ONLY`.
 
 6. If this step is successful, the `Configuring done` text will appear in the bottom box in the last line. Otherwise, some red text will appear in that same bottom box.
 <p align="center">
-    <img src="../../.github/media/cmake_installation_im_3.png", width="480">
-    <img src="../../.github/media/cmake_installation_im_3_windows.png", width="480">
+    <img src="media/cmake_installation_im_3.png", width="480">
+    <img src="media/cmake_installation_im_3_windows.png", width="480">
 </p>
 
 7. Press the `Generate` button and proceed to [Compilation](#compilation). You can now close CMake.
@@ -182,9 +182,13 @@ cd 3rdparty/caffe; git apply ../../scripts/osx/mac_opencl_patch.txt
 #### Windows
 In order to build the project, select and run only one of the 2 following alternatives.
 
-1. **CMake-GUI alternative (recommended)**: Open the Visual Studio solution (Windows) by clicking in `Open Project` in CMake (or alternatively `build/OpenPose.sln`). Then, set the configuration from `Debug` to `Release` and press F7 (or `Build`, `Build Solution`). After it has compiled, and if you have a webcam, you can press the green triangle icon (alternatively <kbd>F5</kbd>) to run OpenPose with the default settings on the webcam.
+- **CMake-GUI alternative (recommended)**:
+    1. Open the Visual Studio solution (Windows) by clicking in `Open Project` in CMake (or alternatively `build/OpenPose.sln`). Then, set the configuration from `Debug` to `Release`.
+    2. Press <kbd>F7</kbd> (or `Build` menu and click on `Build Solution`).
+    3. **Important for Python version**: Make sure not to skip step 2, it is not enough to click on <kbd>F5</kbd> (Run), you must also `Build Solution` for the Python bindings to be generated.
+    4. After it has compiled, and if you have a webcam, you can press the green triangle icon (alternatively <kbd>F5</kbd>) to run the OpenPose demo with the default settings on the webcam.
 
-2. Command-line build alternative (not recommended). NOTE: The command line alternative is not officially supported, but it was added in [GitHub issue #1198](https://github.com/CMU-Perceptual-Computing-Lab/openpose/issues/1198). For any questions or bug report about this command-line version, comment in that GitHub issue.
+- Command-line build alternative (not recommended). NOTE: The command line alternative is not officially supported, but it was added in [GitHub issue #1198](https://github.com/CMU-Perceptual-Computing-Lab/openpose/issues/1198). For any questions or bug report about this command-line version, comment in that GitHub issue.
     1. Run "MSVS 2019 Developer Command Console"
     ```batch
     openpose\mkdir  build
@@ -211,7 +215,7 @@ We welcome users to send us their installation videos (e.g., sharing them as Git
 
 
 ### Running OpenPose
-Check OpenPose was properly installed by running any demo example: [doc/demo_quick_start.md](demo_quick_start.md).
+Check OpenPose was properly installed by running any demo example: [doc/demo_quick_start.md](../demo_quick_start.md).
 
 
 
@@ -236,7 +240,9 @@ If you do not want to use the Windows portable binaries nor compile it from sour
         - [Dockerfile - OpenPose v1.4.0, OpenCV, CUDA 8, CuDNN 6, Python2.7](https://gist.github.com/moiseevigor/11c02c694fc0c22fccd59521793aeaa6).
         - [Dockerfile - OpenPose v1.2.1](https://gist.github.com/sberryman/6770363f02336af82cb175a83b79de33).
 
-- [Google Colab helper script](https://github.com/CMU-Perceptual-Computing-Lab/openpose/issues/949#issue-387855863): Script to install OpenPose on Google Colab. Really useful when access to a computer powerful enough to run OpenPose is not possible, so one possible way to use OpenPose is to build it on a GPU-enabled Colab runtime and then run the programs there. For questions and more details, read and post ONLY on [issue thread #949](https://github.com/CMU-Perceptual-Computing-Lab/openpose/issues/949).
+- Google Colab helper scripts: Script to install OpenPose on Google Colab. Really useful when access to a computer powerful enough to run OpenPose is not possible, so one possible way to use OpenPose is to build it on a GPU-enabled Colab runtime and then run the programs there.
+    - [Google Colab 1/2](https://github.com/CMU-Perceptual-Computing-Lab/openpose/issues/1736#issuecomment-736846794): For questions and more details, read and post ONLY on [issue thread #1736](https://github.com/CMU-Perceptual-Computing-Lab/openpose/issues/1736).
+    - [Google Colab 2/2](https://github.com/CMU-Perceptual-Computing-Lab/openpose/issues/949#issue-387855863): For questions and more details, read and post ONLY on [issue thread #949](https://github.com/CMU-Perceptual-Computing-Lab/openpose/issues/949).
 
 
 
@@ -257,14 +263,14 @@ In order to update it or reinstall it:
 
 ## Advanced Additional Settings (Optional)
 ### Deploying or Exporting OpenPose to Other Projects
-See [doc/advanced/deployment.md](advanced/deployment.md).
+See [doc/advanced/deployment.md](../advanced/deployment.md).
 
 
 
 
 
 ### Maximum Speed
-Check the OpenPose Benchmark as well as some hints to speed up and/or reduce the memory requirements to run OpenPose on [doc/speed_up_openpose.md](speed_up_openpose.md).
+Check the OpenPose Benchmark as well as some hints to speed up and/or reduce the memory requirements to run OpenPose on [doc/speed_up_openpose.md](../speed_up_openpose.md).
 
 
 
@@ -285,7 +291,7 @@ export MKL_NUM_THREADS="8"
 export OMP_NUM_THREADS="8"
 ```
 
-Increasing the number of threads results in a higher RAM memory usage. You can check the [doc/speed_up_openpose.md](speed_up_openpose.md) for more information about speed and memory requirements in several CPUs and GPUs.
+Increasing the number of threads results in a higher RAM memory usage. You can check the [doc/speed_up_openpose.md](../speed_up_openpose.md) for more information about speed and memory requirements in several CPUs and GPUs.
 
 
 
@@ -301,7 +307,7 @@ Lastly, OpenCL version does not support unfixed `--net_resolution`. So a folder 
 
 
 ### COCO and MPI Models
-By default, the body `COCO` and `MPI` models are not downloaded (they are slower and less accurate than `BODY_25`, so not useful in most cases!). But you can download them by turning on the `DOWNLOAD_BODY_COCO_MODEL` or `DOWNLOAD_BODY_MPI_MODEL` flags. Check the differences between these models in [doc/faq.md#difference-between-body_25-vs-coco-vs-mpi](faq.md#difference-between-body_25-vs-coco-vs-mpi).
+By default, the body `COCO` and `MPI` models are not downloaded (they are slower and less accurate than `BODY_25`, so not useful in most cases!). But you can download them by turning on the `DOWNLOAD_BODY_COCO_MODEL` or `DOWNLOAD_BODY_MPI_MODEL` flags. Check the differences between these models in [doc/faq.md#difference-between-body_25-vs-coco-vs-mpi](../faq.md#difference-between-body_25-vs-coco-vs-mpi).
 
 
 
@@ -329,7 +335,7 @@ You can include the 3D reconstruction module by:
 3. Follow the CMake installation steps. In addition, set the `WITH_FLIR_CAMERA` (only if Spinnaker was installed) and `WITH_3D_RENDERER` options.
 4. Increased accuracy with Ceres solver (Ubuntu only): For extra 3-D reconstruction accuracy, run `sudo apt-get install libeigen3-dev`, install [Ceres solver](http://ceres-solver.org/installation.html), and enable `WITH_CERES` in CMake when installing OpenPose. Ceres is harder to install in Windows, so we have not tested it so far in there. Feel free to make a pull request if you do.
 
-After installation, check the [doc/advanced/3d_reconstruction_module.md](advanced/3d_reconstruction_module.md) instructions.
+After installation, check the [doc/advanced/3d_reconstruction_module.md](../advanced/3d_reconstruction_module.md) instructions.
 
 
 
@@ -343,7 +349,7 @@ To enable the extrinsic camera parameter estimation toolbox, you must also enabl
     - Run `sudo apt-get install libeigen3-dev` and link CMake to the right CMake.
 - Advanced (not recommended): Or you could also use your own version of Eigen by setting `WITH_EIGEN` to `AUTOBUILD`, click `Configure` to let CMake download the zip file, and replace `3rdparty/eigen/` by your own version.
 
-After installation, check the [doc/advanced/calibration_module.md](advanced/calibration_module.md) instructions.
+After installation, check the [doc/advanced/calibration_module.md](../advanced/calibration_module.md) instructions.
 
 
 
@@ -357,7 +363,7 @@ However, the OpenPose Unity version will crash if if faces an error while it is 
 ### Compiling without cuDNN
 The [cuDNN](https://developer.nvidia.com/cudnn) library is not mandatory, but required for full keypoint detection accuracy. In case your graphics card is not compatible with cuDNN, you can disable it by unchecking `USE_CUDNN` in CMake.
 
-Then, you would have to reduce the `--net_resolution` flag to fit the model into the GPU memory. You can try values like `640x320`, `320x240`, `320x160`, or `160x80` to see your GPU memory capabilities. After finding the maximum approximate resolution that your GPU can handle without throwing an out-of-memory error, adjust the `net_resolution` ratio to your image or video to be processed (see the `--net_resolution` explanation from [doc/demo_not_quick_start.md](demo_not_quick_start.md)), or use `-1` (e.g., `--net_resolution -1x320`).
+Then, you would have to reduce the `--net_resolution` flag to fit the model into the GPU memory. You can try values like `640x320`, `320x240`, `320x160`, or `160x80` to see your GPU memory capabilities. After finding the maximum approximate resolution that your GPU can handle without throwing an out-of-memory error, adjust the `net_resolution` ratio to your image or video to be processed (see the `--net_resolution` explanation from [doc/demo_not_quick_start.md](../demo_not_quick_start.md)), or use `-1` (e.g., `--net_resolution -1x320`).
 
 
 
@@ -366,7 +372,7 @@ OpenPose uses a [custom fork of Caffe](https://github.com/CMU-Perceptual-Computi
 
 Alternatively, you can use your own Caffe distribution on Ubuntu/Mac by 1) disabling `BUILD_CAFFE`, 2) setting `Caffe_INCLUDE_DIRS` to `{CAFFE_PATH}/include/caffe`, and 3) setting `Caffe_LIBS` to `{CAFFE_PATH}/build/lib/libcaffe.so`, as shown in the image below. Note that cuDNN-compatible Caffe version is required in order to get the maximum possible accuracy in OpenPose.
 <p align="center">
-    <img src="../../.github/media/cmake_installation_im_5.png", width="480">
+    <img src="media/cmake_installation_im_5.png", width="480">
 </p>
 
 For Windows, simply replace the OpenCV DLLs and include folder for your custom one.
